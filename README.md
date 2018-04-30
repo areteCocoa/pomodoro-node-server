@@ -22,15 +22,16 @@ Last Updated: 4-30-18
 ## Soon
 These features are currently being worked on or need to be worked on.
 
-### Timer Controls
-The Pomodoro timer I currently use does not have controls to move the timer forward or backwards
-if I forget to pause or start it. It may be beneficial to include these features, but possibly
-have them turned off by default.
+### Default Client
+A default client, probably CLI, needs to be implemented that utilizes communication with
+the server. This client should show how the service is supposed to be used.
 
-The idea is that the timer holds you to being honest, and moving the timer around could mean
-could suggest that someone is not using it correctly.
+### Callback Implementation for Pomodoro class
+A lot of features below require callbacks on timer updates. It would be helpful if we
+could implement a generic callback for different events on the Pomodoro timer.
 
-Likely that this will get implemented before configuration.
+### Logging
+It would be useful if we were logging things...
 
 ### Configuration
 The server needs to be configured for default times, as well as have the option to change
@@ -43,9 +44,13 @@ Currently, only 200 is returned. It would probably make more sense to return a r
 code. Also, everything is done via URL endpoints, we might look into GET/POST requests
 instead of pure URL calls for control.
 
-### Default Client
-A default client, probably CLI, needs to be implemented that utilizes communication with
-the server. This client should show how the service is supposed to be used.
+### Timer Time Controls
+The Pomodoro timer I currently use does not have controls to move the timer forward or backwards
+if I forget to pause or start it. It may be beneficial to include these features, but possibly
+have them turned off by default.
+
+The idea is that the timer holds you to being honest, and moving the timer around could mean
+could suggest that someone is not using it correctly.
 
 ## Distant Future
 These are features we want to implement, but likely not anytime soon.
@@ -62,6 +67,10 @@ needs to be implemented in the future, but it is too difficult for the curretn p
 ### Web Client
 Using a page with a lot of Javascript, could we write a page that updates itself? I'm still
 new to this, so I have no clue, that's a real question.
+
+### Work Habit Tracking
+Wouldn't it be cool to see how much you worked, what exactly you got done, when you got
+it done, etc.? Probably useless information, but it'd still be "cool."
 
 # Server Documentation
 ## Data Format

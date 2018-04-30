@@ -68,8 +68,13 @@ function handle(request, response) {
         };
     }
 
+    // Increment at the last possible moment
     pomo.increment();
-    response.end(JSON.stringify(pomo));
+
+    // Instantiate a response dictionary that doesn't have "private" (pomo.__private) fields
+    r_pomo = pomo.response_dict;
+
+    response.end(JSON.stringify(r_pomo));
 };
 
 // Returns the command from the parsed_url. Returns null if there

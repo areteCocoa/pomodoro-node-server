@@ -8,12 +8,13 @@ const POMODORO_STARTED = "started";
 const POMODORO_PAUSED = "paused";
 const POMODORO_STOPPED = "stopped";
 
+// Work and rest phase constants
 const POMODORO_WORK = "work";
 const POMODORO_REST = "rest";
 
-// The default times, in milliseconds (ms)
-const DEFAULT_WORK_TIME = 10000;
-const DEFAULT_REST_TIME = 2000;
+// The default times, in milliseconds (ms) (minutes * seconds * milliseconds)
+const DEFAULT_WORK_TIME = 25 * 60 * 1000;
+const DEFAULT_REST_TIME = 5 * 60 * 1000;
 
 // The Pomodoro class can be used to time in repeated work/break timers, configurable on
 // the different durations.
@@ -35,9 +36,9 @@ module.exports = class Pomodoro {
         this.reset();
     }
 
-    // -------------------
-    // Convenience methods
-    // -------------------
+    // -----------------------------
+    // Convenience/Interface methods
+    // -----------------------------
 
     // Starts the timer
     start() {
@@ -64,6 +65,22 @@ module.exports = class Pomodoro {
     // Getters, Setters and Modifiers
     // ------------------------------
 
+    get response_dict() {
+        var res = {};
+
+        for (var k in this) {
+            var v = this[k];
+            if (k[0] == "_") {
+                let new_k = k.slice(2);
+                res[new_k] = this[k];
+            } else {
+                res[k] = this[k];
+            }
+        }
+
+        return res;
+    }
+
     get completed() {
         return this.__completed;
     }
@@ -80,7 +97,7 @@ module.exports = class Pomodoro {
                 this.phase = POMODORO_REST;
             } else {
                 this.phase = POMODORO_WORK;
-            }            
+            }
         }
 
         this.__completed = c;
