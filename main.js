@@ -36,110 +36,8 @@ const default_rest_time = 2;
 // -------------------
 // The Pomodoro object
 // -------------------
-
-// Create the pomodoro object
-let pomo = {
-    // Starts the interval object, does nothing if it's already
-    // on.
-    start : function () {
-        this.set_status("started");
-    },
-
-    pause : function () {
-        this.set_status("paused");
-    },
-
-    stop : function () {
-        this.set_status("stopped");
-    },
-
-    // Toggles the PD object on/off
-    toggle : function () {
-        if (this.status == "paused" || this.status =="stopped") {
-            this.set_status("started");
-        } else {
-            this.set_status("paused");
-        }
-    },
-
-    reset : function () {
-        this.last_update = Date.now();
-        this.remaining = default_work_time * 1000;
-    },
-
-    // Sets the status to the new status and updates the remaining time if necessary
-    set_status : function (new_status) {
-        // Leave early if we're already at the state
-        if (this.status == new_status) {
-            return;
-        }
-
-        // We're stopping, we can reset the timer
-        if (new_status == "stopped") {
-            this.reset();
-        }
-
-        // We're pausing from being started, we can update the last_update to now
-        if (this.status == "started" && new_status == "paused") {
-            this.increment();
-        }
-
-        // We're starting from being paused or stopped, we move last_update to Date.now()
-        if ((this.status == "paused" || this.status == "stopped") && new_status == "started") {
-            this.last_update = Date.now();
-
-            // Calculate the new finish time
-            this.finish_time = this.last_update + this.remaining;
-        }
-
-        this.status = new_status;
-    },
-
-    // Increments the difference between this.last_update and Date.now()
-    //
-    // Call this when you want to update the time remaining, especially when
-    // pausing the timer.
-    increment : function() {
-        if (this.status == "stopped" || this.status == "paused") {
-            return;
-        }
-        let now = Date.now();
-        let diff = now - this.last_update;
-        console.log("Found a difference of " + diff + "ms");
-
-        this.last_update = now;
-        this.remaining = this.remaining - diff;
-
-        if (this.remaining <= 0) {
-            this.set_status("stopped");
-            this.completed = true;
-        }
-    },
-
-    // Instance Fields/Properties
-
-    // The number of seconds worked before ending the timer
-    work_time : default_work_time,
-
-    // The number of seconds rested before restarting the timer
-    rest_time : default_rest_time,
-
-    // The last time the timer was updated
-    last_update : Date.now(),
-
-    // The time in ms at which the timer will finish
-    finish_time : null,
-
-    completed : false,
-
-    // The remaining time in milliseconds
-    remaining: 0,
-
-    // The current status of the timer
-    status : "stopped"
-};
-
-pomo.reset();
+let Pomodoro = require('./pomodoro');
+pomo = new Pomodoro();
 
 // -------------------
 // Server Handler Code
@@ -161,8 +59,11 @@ function handle(request, response) {
         case "start":
             pomo.start();
             break;
-        case "toggle":
-            pomo.toggle();
+        case "pause":
+            pomo.pause();
+            break;
+        case "stop":
+            pomo.stop();
             break;
         };
     }
