@@ -9,7 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "command-line-args": "^5.0.2",
+    "keypress": "^0.2.1",
     "node-datetime": "^2.0.6",
-    "npm": "^6.0.0"
+    "npm": "^6.0.0",
+    "sprintf-js": "^1.1.1",
+    "title-case": "^2.1.1"
   }
 }

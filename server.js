@@ -23,19 +23,7 @@ const url = require('url');
 const hostname = '127.0.0.1';
 const port = 3000;
 
-// COMMENTED OUT FOR DEBUGGING
-// Default work time is 25 minutes
-// const default_work_time = 1500;
-// Default rest time is 5 minutes
-// const default_rest_time = 300;
-
-// DEBUGGING CONSTANTS
-const default_work_time = 10;
-const default_rest_time = 2;
-
-// -------------------
 // The Pomodoro object
-// -------------------
 let Pomodoro = require('./pomodoro');
 pomo = new Pomodoro();
 
@@ -51,7 +39,7 @@ function handle(request, response) {
     q_value = get_query_value(parsed_url);
 
     response.statusCode = 200;
-    response.setHeader("Content-Type", "text/plain");
+    response.setHeader("Content-Type", "application/json");
 
     if (command != null) {
         // Do something with the command
